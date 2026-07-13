@@ -1,0 +1,10 @@
+.venv/
+.streamlit/secrets.toml
+.env
+.env*.local
+__pycache__/
+*.pyc
+.agents/
+.gemini/
+.system_generated/
+*.log
