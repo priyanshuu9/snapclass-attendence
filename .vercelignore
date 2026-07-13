@@ -1,0 +1,19 @@
+# Ignore Python virtual environment and local caches
+.venv/
+__pycache__/
+*.pyc
+
+# Ignore Streamlit specific directories and files
+.streamlit/
+src/
+streamlit_app.py
+packages.txt
+requirements.txt
+student_face.png
+
+# Ignore development logs/configs
+.git/
+.gitignore
+.env
+.env.example
+*.md
