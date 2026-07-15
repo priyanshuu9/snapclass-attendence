@@ -19,6 +19,35 @@ def main():
         page_icon= "https://i.ibb.co/YTYGn5qV/logo.png"
     )
     
+    # Sync theme from localStorage to URL query parameters silently without refreshing
+    import streamlit.components.v1 as components
+    components.html("""
+        <script>
+            try {
+                const urlParams = new URLSearchParams(window.parent.location.search);
+                const urlTheme = urlParams.get('theme');
+                const localTheme = localStorage.getItem('theme');
+                
+                if (!urlTheme) {
+                    const activeTheme = localTheme || 'dark';
+                    urlParams.set('theme', activeTheme);
+                    window.parent.history.replaceState({}, '', window.parent.location.pathname + '?' + urlParams.toString());
+                    localStorage.setItem('theme', activeTheme);
+                } else {
+                    localStorage.setItem('theme', urlTheme);
+                }
+            } catch (e) {
+                console.error("Theme sync error:", e);
+            }
+        </script>
+    """, height=0, width=0)
+
+    # Read and store current theme state
+    theme_param = st.query_params.get('theme', 'dark')
+    if theme_param not in ['dark', 'light']:
+        theme_param = 'dark'
+    st.session_state['theme'] = theme_param
+    
     # Verify Supabase configuration and connectivity
     from src.database.config import check_db_connection
     db_success, db_error = check_db_connection()

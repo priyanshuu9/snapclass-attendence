@@ -8,3 +8,8 @@ __pycache__/
 .gemini/
 .system_generated/
 *.log
+
+.vercel
+node-portable/
+node.zip
+node_modules/

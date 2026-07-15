@@ -46,19 +46,7 @@ def student_dashboard():
         pass
 
     # Dashboard Header
-    c1, c2 = st.columns([3.5, 1.2], vertical_alignment='center')
-    with c1:
-        header_dashboard()
-    with c2:
-        st.markdown(f"<div style='text-align: right; font-family: \"Outfit\"; font-size: 1.15rem; font-weight: 600; color: #1e293b; margin-bottom: 5px;'>👤 {student_data['name']}</div>", unsafe_allow_html=True)
-        if st.button("Logout", type='secondary', key='logout_btn', use_container_width=True):
-            clear_session()
-            st.session_state['is_logged_in'] = False
-            if 'student_data' in st.session_state:
-                del st.session_state.student_data 
-            if 'login_type' in st.session_state:
-                st.session_state['login_type'] = None
-            st.rerun()
+    header_dashboard()
 
     st.space()
 
@@ -113,9 +101,9 @@ def student_dashboard():
 
     if low_attendance_warnings:
         st.markdown(f"""
-            <div style="background-color: #FEE2E2; border-left: 6px solid #EF4444; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
-                <span style="color: #991B1B; font-weight: 700; font-size: 1.1rem; font-family: 'Outfit'">⚠️ Attendance Alert</span>
-                <p style="color: #7F1D1D; margin: 5px 0 0 0; font-family: 'Outfit'; font-size: 0.95rem">
+            <div class="warning-alert-container">
+                <span style="color: #ef4444; font-weight: 700; font-size: 1.1rem; font-family: 'Outfit'">⚠️ Attendance Alert</span>
+                <p style="color: var(--text-primary); margin: 5px 0 0 0; font-family: 'Outfit'; font-size: 0.95rem">
                     Your attendance is currently below the required 75.0% in: {', '.join(low_attendance_warnings)}. Please attend classes to prevent debarment.
                 </p>
             </div>
@@ -198,7 +186,7 @@ def student_dashboard():
                     <div class="biometric-card">
                         <span style="font-size: 2.2rem;">👤</span>
                         <h4>Face ID Scanner</h4>
-                        <p style="font-size: 0.95rem; color: #64748b; min-height: 48px; margin: 8px 0 16px 0;">Scan your face using the webcam to mark attendance automatically.</p>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); min-height: 48px; margin: 8px 0 16px 0;">Scan your face using the webcam to mark attendance automatically.</p>
                     </div>
                 """, unsafe_allow_html=True)
                 if st.button('Use Face Scanning', type='primary', use_container_width=True, icon=':material/photo_prints:', key='btn_launch_face'):
@@ -209,7 +197,7 @@ def student_dashboard():
                     <div class="biometric-card">
                         <span style="font-size: 2.2rem;">🎙️</span>
                         <h4>Voice ID Authentication</h4>
-                        <p style="font-size: 0.95rem; color: #64748b; min-height: 48px; margin: 8px 0 16px 0;">Record your unique voice signature to verify attendance.</p>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); min-height: 48px; margin: 8px 0 16px 0;">Record your unique voice signature to verify attendance.</p>
                     </div>
                 """, unsafe_allow_html=True)
                 if st.button('Use Voice Verification', type='primary', use_container_width=True, icon=':material/mic:', key='btn_launch_voice'):
@@ -338,6 +326,55 @@ def student_screen():
     style_base_layout()
 
     if "student_data" in st.session_state:
+        student_data = st.session_state.student_data
+        with st.sidebar:
+            st.markdown("""
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom: 20px; padding-top: 10px;">
+                    <img src="https://i.ibb.co/YTYGn5qV/logo.png" style="height:45px;" />
+                    <h3 style="margin:0; font-family:'Outfit'; font-weight:800; color: var(--primary);">SnapClass</h3>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.divider()
+            
+            # User profile summary
+            st.markdown(f"""
+                <div style="padding: 10px 0;">
+                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Student Account</p>
+                    <h4 style="margin: 4px 0; font-family: 'Outfit'; font-weight: 700; color: var(--text-primary);">👤 {student_data['name']}</h4>
+                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">@{student_data['username']}</p>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.divider()
+            
+            # Theme toggle
+            st.markdown("### 🌓 Appearance")
+            theme_toggled = st.toggle("Dark Mode", value=(st.session_state.get('theme', 'dark') == 'dark'), key='student_sidebar_theme_toggle')
+            new_theme = 'dark' if theme_toggled else 'light'
+            if new_theme != st.session_state.get('theme', 'dark'):
+                st.session_state['theme'] = new_theme
+                st.query_params['theme'] = new_theme
+                import streamlit.components.v1 as components
+                components.html(f"""
+                    <script>
+                        localStorage.setItem('theme', '{new_theme}');
+                    </script>
+                """, height=0, width=0)
+                st.rerun()
+                
+            st.divider()
+            
+            # Logout
+            if st.button("Logout", type='secondary', key='student_sidebar_logout_btn', use_container_width=True):
+                clear_session()
+                st.session_state['is_logged_in'] = False
+                if 'student_data' in st.session_state:
+                    del st.session_state.student_data 
+                if 'login_type' in st.session_state:
+                    st.session_state['login_type'] = None
+                st.rerun()
+
         student_dashboard()
         return
     
@@ -364,7 +401,7 @@ def student_screen():
 
 def student_screen_login():
     with st.container(border=True):
-        st.markdown("<h2 style='text-align: center; color: #5865F2; margin-top: 0;'>Student Login</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: var(--primary); margin-top: 0; font-family: Outfit;'>Student Login</h2>", unsafe_allow_html=True)
         st.space()
 
         login_method = st.radio("Select Authentication Method", ["Password Login", "FaceID Login"], horizontal=True, key='student_login_method_select')
@@ -376,7 +413,7 @@ def student_screen_login():
             st.divider()
             btnc1, btnc2 = st.columns(2)
             with btnc1:
-                if st.button('Login', icon=':material/passkey:', shortcut='control+enter', type='primary', use_container_width=True, key='student_password_login_btn'):
+                if st.button('Log in', shortcut='control+enter', type='primary', use_container_width=True, key='student_password_login_btn'):
                     if not username or not password:
                         st.warning("Please fill in both fields!")
                     else:
@@ -444,7 +481,7 @@ def student_screen_login():
 
 def student_screen_register():
     with st.container(border=True):
-        st.markdown("<h2 style='text-align: center; color: #5865F2; margin-top: 0;'>Register Student Profile</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: var(--primary); margin-top: 0; font-family: Outfit;'>Register Student Profile</h2>", unsafe_allow_html=True)
         st.space()
 
         # Input elements with fixed keys to survive camera inputs

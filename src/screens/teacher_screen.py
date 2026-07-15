@@ -35,6 +35,59 @@ def teacher_screen():
     style_base_layout()
 
     if "teacher_data" in st.session_state:
+        # Redesigned Premium Glassmorphic Sidebar
+        teacher_data = st.session_state.teacher_data
+        with st.sidebar:
+            st.markdown("""
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom: 20px; padding-top: 10px;">
+                    <img src="https://i.ibb.co/YTYGn5qV/logo.png" style="height:45px;" />
+                    <h3 style="margin:0; font-family:'Outfit'; font-weight:800; color: var(--primary);">SnapClass</h3>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.divider()
+            
+            # User profile summary
+            st.markdown(f"""
+                <div style="padding: 10px 0;">
+                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: bold; letter-spacing: 0.5px;">Professor Account</p>
+                    <h4 style="margin: 4px 0; font-family: 'Outfit'; font-weight: 700; color: var(--text-primary);">🏫 Prof. {teacher_data['name']}</h4>
+                    <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">@{teacher_data['username']}</p>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            st.divider()
+            
+            # Theme toggle
+            st.markdown("### 🌓 Appearance")
+            theme_toggled = st.toggle("Dark Mode", value=(st.session_state.get('theme', 'dark') == 'dark'), key='teacher_sidebar_theme_toggle')
+            new_theme = 'dark' if theme_toggled else 'light'
+            if new_theme != st.session_state.get('theme', 'dark'):
+                st.session_state['theme'] = new_theme
+                st.query_params['theme'] = new_theme
+                import streamlit.components.v1 as components
+                components.html(f"""
+                    <script>
+                        localStorage.setItem('theme', '{new_theme}');
+                    </script>
+                """, height=0, width=0)
+                st.rerun()
+                
+            st.divider()
+            
+            # Logout
+            if st.button("Logout", type='secondary', key='teacher_sidebar_logout_btn', use_container_width=True):
+                from src.utils.session import clear_session
+                clear_session()
+                st.session_state['is_logged_in'] = False
+                if 'teacher_data' in st.session_state:
+                    del st.session_state.teacher_data 
+                if 'login_type' in st.session_state:
+                    st.session_state['login_type'] = None
+                if 'active_teacher_subject' in st.session_state:
+                    del st.session_state.active_teacher_subject
+                st.rerun()
+
         # Check if teacher has selected a course to drill down
         if st.session_state.get("active_teacher_subject"):
             teacher_subject_details_dashboard()
@@ -50,23 +103,8 @@ def teacher_dashboard():
     teacher_data = st.session_state.teacher_data
     teacher_id = teacher_data['teacher_id']
 
-    c1, c2 = st.columns([3.5, 1.2], vertical_alignment='center')
-    with c1:
-        header_dashboard()
-    with c2:
-        st.markdown(f"<div style='text-align: right; font-family: \"Outfit\"; font-size: 1.15rem; font-weight: 600; color: #1e293b; margin-bottom: 5px;'>🏫 Professor {teacher_data['name']}</div>", unsafe_allow_html=True)
-        if st.button("Logout", type='secondary', key='teacher_logout_btn', use_container_width=True):
-            from src.utils.session import clear_session
-            clear_session()
-            st.session_state['is_logged_in'] = False
-            if 'teacher_data' in st.session_state:
-                del st.session_state.teacher_data 
-            if 'login_type' in st.session_state:
-                st.session_state['login_type'] = None
-            if 'active_teacher_subject' in st.session_state:
-                del st.session_state.active_teacher_subject
-            st.rerun()
-
+    # Clean header presentation
+    header_dashboard()
     st.space()
 
     # Tabs inside general dashboard
@@ -582,7 +620,7 @@ def teacher_screen_login():
     st.space()
 
     with st.container(border=True):
-        st.markdown("<h2 style='text-align: center; color: #5865F2; margin-top: 0;'>Teacher Login</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: var(--primary); margin-top: 0; font-family: Outfit;'>Teacher Login</h2>", unsafe_allow_html=True)
         st.space()
 
         teacher_username = st.text_input("Username", placeholder='Enter your username', key='t_login_username_input')
@@ -592,7 +630,7 @@ def teacher_screen_login():
         btnc1, btnc2 = st.columns(2)
 
         with btnc1:
-            if st.button('Login', icon=':material/passkey:', shortcut='control+enter', type='primary', use_container_width=True, key='teacher_submit_login_btn'):
+            if st.button('Log in', shortcut='control+enter', type='primary', use_container_width=True, key='teacher_submit_login_btn'):
                 # Call local helper login_teacher defined in this file
                 success, error_msg = login_teacher(teacher_username, teacher_pass)
                 if success:
@@ -624,7 +662,7 @@ def register_teacher(teacher_username, teacher_name, teacher_pass, teacher_pass_
     except Exception as e:
         return False, f"Registration error: {str(e)}"
     
-
+ 
 def teacher_screen_register():
     c1, c2 = st.columns([3.5, 1.2], vertical_alignment='center')
     with c1:
@@ -637,7 +675,7 @@ def teacher_screen_register():
     st.space()
 
     with st.container(border=True):
-        st.markdown("<h2 style='text-align: center; color: #5865F2; margin-top: 0;'>Register Teacher Profile</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='text-align: center; color: var(--primary); margin-top: 0; font-family: Outfit;'>Register Teacher Profile</h2>", unsafe_allow_html=True)
         st.space()
         
         teacher_username = st.text_input("Choose Username", placeholder='ananyaroy', key='t_reg_username')
@@ -650,7 +688,7 @@ def teacher_screen_register():
         btnc1, btnc2 = st.columns(2)
 
         with btnc1:
-            if st.button('Register Now', icon=':material/passkey:', shortcut='control+enter', type='primary', use_container_width=True, key='teacher_submit_reg_btn'):
+            if st.button('Register Now', shortcut='control+enter', type='primary', use_container_width=True, key='teacher_submit_reg_btn'):
                 success, message = register_teacher(teacher_username, teacher_name, teacher_pass, teacher_pass_confirm)
                 if success:
                     st.success(message)

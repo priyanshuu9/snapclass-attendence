@@ -11,33 +11,12 @@ def home_screen():
     # Custom SaaS Styling overrides for home screen
     st.markdown("""
         <style>
-        /* Modern Fonts and Variables */
-        :root {
-            --primary: #5865F2;
-            --primary-dark: #4752C4;
-            --accent: #EB459E;
-            --bg-light: #F3F4F6;
-            --text-dark: #1F2937;
-        }
-
-        /* Glassmorphism Navigation Bar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            margin-bottom: 2rem;
-        }
+        /* Modern Fonts and Variables overrides */
         .navbar-brand {
             font-family: 'Outfit', sans-serif;
             font-weight: 800;
             font-size: 1.5rem;
-            color: white;
+            color: var(--text-primary);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -46,111 +25,123 @@ def home_screen():
         .navbar-links {
             display: flex;
             gap: 1.5rem;
+            align-items: center;
         }
         .navbar-link {
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-muted);
             text-decoration: none;
             font-family: 'Outfit', sans-serif;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 0.95rem;
             transition: color 0.2s ease;
         }
         .navbar-link:hover {
-            color: #EB459E;
+            color: var(--primary);
+        }
+
+        /* Glassmorphic Navbar Wrapper Selector Hack */
+        div[data-testid="stHorizontalBlock"]:first-of-type {
+            background: var(--bg-navbar) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border-radius: 20px !important;
+            border: 1px solid var(--border) !important;
+            padding: 12px 24px !important;
+            margin-bottom: 3rem !important;
+            box-shadow: var(--shadow) !important;
         }
 
         /* Hero Text & Layout */
         .hero-section {
             text-align: center;
-            padding: 3rem 1rem;
-            color: white;
+            padding: 2rem 1rem 4rem 1rem;
+            color: var(--text-primary);
         }
         .hero-title {
             font-family: 'Outfit', sans-serif !important;
             font-size: 3.5rem !important;
             font-weight: 800 !important;
             line-height: 1.15 !important;
-            color: white !important;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+            color: var(--text-primary) !important;
             margin-bottom: 1.5rem !important;
+        }
+        .hero-title span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
         }
         .hero-subtitle {
             font-family: 'Outfit', sans-serif !important;
-            font-size: 1.35rem !important;
-            color: rgba(255, 255, 255, 0.9) !important;
-            max-width: 800px;
-            margin: 0 auto 3rem auto !important;
+            font-size: 1.25rem !important;
+            color: var(--text-muted) !important;
+            max-width: 760px;
+            margin: 0 auto !important;
             line-height: 1.6 !important;
-        }
-
-        /* Portal Cards */
-        .portal-card {
-            background: white !important;
-            border-radius: 24px !important;
-            padding: 2.5rem !important;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
-            transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-            border: 2px solid rgba(255, 255, 255, 0.5) !important;
-            text-align: center;
-            height: 100%;
         }
         
         /* Features Section */
         .section-title {
             text-align: center;
-            color: white;
+            color: var(--text-primary);
             font-family: 'Outfit', sans-serif !important;
             font-size: 2.5rem !important;
             font-weight: 800 !important;
-            margin-top: 4rem !important;
+            margin-top: 5rem !important;
             margin-bottom: 2.5rem !important;
         }
         .feature-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 18px;
-            padding: 1.75rem;
-            border-left: 6px solid #EB459E;
-            color: #1F2937;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2.25rem;
+            border: 1px solid var(--border);
+            border-left: 5px solid var(--primary);
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
             margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--border-glow);
         }
         .feature-title {
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
-            font-size: 1.25rem;
-            color: #111827;
+            font-size: 1.3rem;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
         .feature-desc {
             font-family: 'Outfit', sans-serif;
-            color: #4B5563;
+            color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.5;
         }
 
         /* How It Works Card Styling */
         .how-card {
-            background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%) !important;
+            background: var(--bg-card) !important;
             border-radius: 24px !important;
-            padding: 2.25rem !important;
-            border: 2px solid #EB459E !important;
+            padding: 2.5rem !important;
+            border: 1px solid var(--border) !important;
             height: 100% !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(235, 69, 158, 0.25) !important;
+            box-shadow: var(--shadow) !important;
         }
         .how-card h3 {
-            color: #ffffff !important;
+            color: var(--text-primary) !important;
             font-family: 'Outfit', sans-serif !important;
             font-size: 1.6rem !important;
             font-weight: 800 !important;
             margin-top: 0 !important;
             margin-bottom: 1.25rem !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-bottom: 1px solid var(--border) !important;
             padding-bottom: 0.5rem !important;
         }
         .how-card ol {
             font-family: 'Outfit', sans-serif !important;
             line-height: 1.8 !important;
             padding-left: 1.2rem !important;
-            color: #E2E8F0 !important;
+            color: var(--text-muted) !important;
         }
         .how-card li {
             margin-bottom: 0.75rem !important;
@@ -159,51 +150,72 @@ def home_screen():
 
         /* FAQ Accordion Styling */
         .faq-card {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
-            color: white;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+            box-shadow: var(--shadow);
+            transition: border-color 0.3s ease;
+        }
+        .faq-card:hover {
+            border-color: var(--border-glow);
         }
         .faq-question {
             font-family: 'Outfit', sans-serif;
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 1.15rem;
             margin-bottom: 0.5rem;
-            color: #E0E3FF;
+            color: var(--primary);
         }
         .faq-answer {
             font-family: 'Outfit', sans-serif;
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.85);
-            line-height: 1.5;
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            line-height: 1.6;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # 1. Glassmorphism Navigation Bar
-    st.markdown("""
-        <div class="navbar">
-            <a href="#" class="navbar-brand">
-                <img src="https://i.ibb.co/YTYGn5qV/logo.png" style="height:40px;" />
-                <span>SnapClass</span>
-            </a>
-            <div class="navbar-links">
-                <a href="#features" class="navbar-link">Features</a>
-                <a href="#how-it-works" class="navbar-link">How It Works</a>
-                <a href="#faq" class="navbar-link">FAQ</a>
+    # 1. Glassmorphism Navigation Bar with Streamlit layout
+    nav_c1, nav_c2 = st.columns([4, 1.2], vertical_alignment='center')
+    with nav_c1:
+        st.markdown("""
+            <div style="display: flex; align-items: center; gap: 20px; padding: 0.2rem 0;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="https://i.ibb.co/YTYGn5qV/logo.png" style="height:36px;" />
+                    <span style="font-family: 'Outfit'; font-weight: 800; font-size: 1.4rem; color: var(--text-primary);">SnapClass</span>
+                </div>
+                <div style="display: flex; gap: 1.5rem; margin-left: 2.5rem; align-items: center;">
+                    <a href="#features" class="navbar-link">Features</a>
+                    <a href="#how-it-works" class="navbar-link">Process</a>
+                    <a href="#faq" class="navbar-link">FAQ</a>
+                </div>
             </div>
-        </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+    with nav_c2:
+        # Real-time Theme toggle widget inside Navbar
+        theme_toggled = st.toggle("Dark Mode", value=(st.session_state.get('theme', 'dark') == 'dark'), key='home_theme_toggle_widget')
+        new_theme = 'dark' if theme_toggled else 'light'
+        if new_theme != st.session_state.get('theme', 'dark'):
+            st.session_state['theme'] = new_theme
+            st.query_params['theme'] = new_theme
+            import streamlit.components.v1 as components
+            components.html(f"""
+                <script>
+                    localStorage.setItem('theme', '{new_theme}');
+                </script>
+            """, height=0, width=0)
+            st.rerun()
 
     # 2. Hero Section
     st.markdown("""
         <div class="hero-section">
-            <h1 class="hero-title">AI-Powered Attendance<br>for Modern Classrooms</h1>
+            <h1 class="hero-title">AI Attendance System<br><span>Built for Smart Classrooms</span></h1>
             <p class="hero-subtitle">
-                Automate class attendance in seconds using facial recognition and voice authentication. 
-                Say goodbye to proxy attendance and manual roll calls.
+                Automate roll-calls in seconds using computer vision facial scanning and backup voice biometrics. 
+                Say goodbye to proxies and administration overhead.
             </p>
         </div>
     """, unsafe_allow_html=True)
@@ -214,8 +226,8 @@ def home_screen():
     with col1:
         st.markdown("""
             <div style="text-align: center;">
-                <h2 style="color: white; margin-bottom: 1rem;">Student Portal</h2>
-                <p style="color: #E0E3FF; font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin-bottom: 1.5rem; line-height:1.4">
+                <h2 style="color: var(--text-primary); margin-bottom: 1rem;">Student Portal</h2>
+                <p style="color: var(--text-muted); font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin-bottom: 1.5rem; line-height:1.4">
                     Join a class, register your AI templates (Face and Voice), and view your real-time attendance scorecards.
                 </p>
                 <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
@@ -230,8 +242,8 @@ def home_screen():
     with col2:
         st.markdown("""
             <div style="text-align: center;">
-                <h2 style="color: white; margin-bottom: 1rem;">Teacher Portal</h2>
-                <p style="color: #E0E3FF; font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin-bottom: 1.5rem; line-height:1.4">
+                <h2 style="color: var(--text-primary); margin-bottom: 1rem;">Teacher Portal</h2>
+                <p style="color: var(--text-muted); font-family: 'Outfit', sans-serif; font-size: 1.05rem; margin-bottom: 1.5rem; line-height:1.4">
                     Create subjects, generate enrollment QR codes, launch smart scanning, and download structured attendance sheets.
                 </p>
                 <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
@@ -244,7 +256,7 @@ def home_screen():
             st.rerun()
 
     # Divider
-    st.markdown("<br><hr style='border: 1px solid rgba(255,255,255,0.2)'><br>", unsafe_allow_html=True)
+    st.markdown("<br><hr style='border: 1px solid var(--border)'><br>", unsafe_allow_html=True)
 
     # 4. Features Section
     st.markdown("<h2 class='section-title' id='features'>Core AI Capabilities</h2>", unsafe_allow_html=True)
