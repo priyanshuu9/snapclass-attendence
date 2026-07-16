@@ -41,9 +41,15 @@ def health_check():
     try:
         import requests
         # Fallback check on the root page
-        res = requests.get(streamlit_url, timeout=3)
+        res = requests.get(streamlit_url, timeout=4)
+        content = res.text.lower()
+        
+        # If redirected to share.streamlit.io auth or contains sleep text, it is sleeping
+        if "share.streamlit.io" in res.url or "get this app back up" in content or "zzzz" in content or "sleeping" in content:
+            return {"status": "sleeping"}
+            
         if res.status_code == 200:
-            if "Sleeping" not in res.text and "waking up" not in res.text:
+            if "sleeping" not in content and "waking up" not in content:
                 return {"status": "online"}
     except Exception:
         pass

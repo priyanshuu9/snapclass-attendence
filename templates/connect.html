@@ -243,6 +243,20 @@
                         setTimeout(() => {
                             window.location.href = streamlitUrl;
                         }, 800);
+                    } else if (data.status === 'sleeping') {
+                        // Streamlit is sleeping! Show direct Wake Up link immediately
+                        clearInterval(messageInterval);
+                        statusTitle.textContent = "Waking up SnapClass AI...";
+                        statusDesc.textContent = "Streamlit Community Cloud is loading the instance container. Click below to confirm container boot.";
+                        
+                        // Prevent repeatedly overwriting HTML if already displayed
+                        if (actionsContainer.style.display !== 'flex') {
+                            actionsContainer.innerHTML = `
+                                <a href="${streamlitUrl}" class="btn btn-primary">Yes, Wake up SnapClass AI!</a>
+                                <a href="/" class="btn btn-secondary">Go Back to Home</a>
+                            `;
+                            actionsContainer.style.display = 'flex';
+                        }
                     }
                 })
                 .catch(err => {

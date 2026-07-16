@@ -13,4 +13,4 @@ def get_streamlit_url():
         return 'http://localhost:8501'
     
     # Priority 3: Fallback Production default
-    return 'https://snapclass-main.streamlit.app'
+    return 'https://snapclass-attendence.streamlit.app'
