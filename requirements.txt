@@ -21,8 +21,5 @@ pillow
 
 
 librosa
-https://download.pytorch.org/whl/cpu/torch-2.2.0+cpu-cp312-cp312-linux_x86_64.whl; sys_platform == 'linux'
-torch; sys_platform != 'linux'
-resemblyzer
 Flask
 gunicorn
