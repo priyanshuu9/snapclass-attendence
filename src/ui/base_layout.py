@@ -6,76 +6,70 @@ def get_theme_css():
         return """
         :root {
             --bg-main: #0B0B0B;
-            --bg-sidebar: rgba(17, 17, 17, 0.95);
-            --bg-card: #181818;
-            --bg-secondary: #111111;
-            --border: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(99, 102, 241, 0.25);
+            --bg-sidebar: #111111;
+            --bg-card: #161616;
+            --bg-secondary: #121212;
+            --border: #222222;
+            --border-glow: #333333;
             --text-primary: #ffffff;
-            --text-muted: #9ca3af;
+            --text-muted: #8e8e93;
             --text-on-accent: #ffffff;
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-glow: rgba(99, 102, 241, 0.2);
-            --secondary: #8b5cf6;
-            --secondary-dark: #7c3aed;
-            --secondary-glow: rgba(139, 92, 246, 0.15);
-            --bg-gradient: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-                            radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
-                            radial-gradient(at 50% 100%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
-                            #0B0B0B;
-            --input-bg: rgba(255, 255, 255, 0.02);
-            --input-border: rgba(255, 255, 255, 0.08);
-            --input-focus-border: #6366f1;
-            --tab-bg: rgba(255, 255, 255, 0.02);
-            --tab-border: rgba(255, 255, 255, 0.06);
-            --tab-selected: rgba(255, 255, 255, 0.08);
-            --metric-bg: rgba(255, 255, 255, 0.02);
-            --metric-border: rgba(255, 255, 255, 0.04);
-            --card-border-glow: rgba(99, 102, 241, 0.12);
-            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --primary-glow: transparent;
+            --secondary: #7c3aed;
+            --secondary-dark: #5b21b6;
+            --secondary-glow: transparent;
+            --bg-gradient: #0B0B0B;
+            --input-bg: #1a1a1a;
+            --input-border: #2c2c2e;
+            --input-focus-border: #4f46e5;
+            --tab-bg: #111111;
+            --tab-border: #222222;
+            --tab-selected: #1a1a1a;
+            --metric-bg: #161616;
+            --metric-border: #222222;
+            --card-border-glow: #222222;
+            --shadow: none;
             --success-bg: rgba(16, 185, 129, 0.1);
-            --success-text: #34d399;
-            --card-bg-glass: rgba(24, 24, 24, 0.6);
-            --bg-navbar: rgba(11, 11, 11, 0.75);
+            --success-text: #10b981;
+            --card-bg-glass: #161616;
+            --bg-navbar: #0B0B0B;
         }
         """
     else:
         return """
         :root {
             --bg-main: #f8fafc;
-            --bg-sidebar: rgba(248, 250, 252, 0.85);
+            --bg-sidebar: #ffffff;
             --bg-card: #ffffff;
             --bg-secondary: #f1f5f9;
-            --border: rgba(15, 23, 42, 0.08);
-            --border-glow: rgba(99, 102, 241, 0.15);
+            --border: #e2e8f0;
+            --border-glow: #cbd5e1;
             --text-primary: #0f172a;
             --text-muted: #64748b;
             --text-on-accent: #ffffff;
             --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --primary-glow: rgba(79, 70, 229, 0.15);
-            --secondary: #d946ef;
-            --secondary-dark: #c084fc;
-            --secondary-glow: rgba(217, 70, 239, 0.15);
-            --bg-gradient: radial-gradient(at 0% 0%, rgba(224, 227, 255, 0.6) 0px, transparent 50%),
-                            radial-gradient(at 100% 0%, rgba(235, 69, 158, 0.12) 0px, transparent 50%),
-                            radial-gradient(at 50% 100%, rgba(88, 101, 242, 0.08) 0px, transparent 50%),
-                            #f8fafc;
-            --input-bg: rgba(255, 255, 255, 0.7);
-            --input-border: rgba(88, 101, 242, 0.2);
+            --primary-dark: #3730a3;
+            --primary-glow: transparent;
+            --secondary: #7c3aed;
+            --secondary-dark: #5b21b6;
+            --secondary-glow: transparent;
+            --bg-gradient: #f8fafc;
+            --input-bg: #ffffff;
+            --input-border: #cbd5e1;
             --input-focus-border: #4f46e5;
-            --tab-bg: rgba(255, 255, 255, 0.6);
-            --tab-border: rgba(255, 255, 255, 0.5);
+            --tab-bg: #f1f5f9;
+            --tab-border: #e2e8f0;
             --tab-selected: #ffffff;
-            --metric-bg: rgba(255, 255, 255, 0.7);
-            --metric-border: rgba(255, 255, 255, 0.5);
-            --card-border-glow: rgba(99, 102, 241, 0.08);
-            --shadow: 0 4px 20px rgba(99, 102, 241, 0.05);
-            --success-bg: rgba(16, 185, 129, 0.15);
+            --metric-bg: #ffffff;
+            --metric-border: #e2e8f0;
+            --card-border-glow: #e2e8f0;
+            --shadow: none;
+            --success-bg: rgba(16, 185, 129, 0.1);
             --success-text: #059669;
-            --card-bg-glass: rgba(255, 255, 255, 0.7);
-            --bg-navbar: rgba(248, 250, 252, 0.75);
+            --card-bg-glass: #ffffff;
+            --bg-navbar: #ffffff;
         }
         """
 
@@ -125,9 +119,13 @@ def style_base_layout():
                 color: var(--text-primary) !important;
             }}
             
-            /* Hide Streamlit Header elements */
-            #MainMenu, footer, header {{
-                visibility: hidden;
+            /* Hide only specific Streamlit Header actions and footer, keeping header itself visible for the sidebar toggle */
+            #MainMenu, footer, [data-testid="stHeaderActionButton"], [data-testid="stDecoration"] {{
+                visibility: hidden !important;
+            }}
+            
+            header {{
+                background-color: transparent !important;
             }}
             
             .block-container {{
@@ -141,9 +139,7 @@ def style_base_layout():
                 font-weight: 800 !important;
                 line-height: 1.15 !important;
                 margin-bottom: 0rem !important;
-                background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
-                -webkit-background-clip: text !important;
-                -webkit-text-fill-color: transparent !important;
+                color: var(--text-primary) !important;
             }}
             
             h2 {{
@@ -165,50 +161,143 @@ def style_base_layout():
                 color: var(--text-muted) !important;
             }}
 
-            /* Primary Button style */
-            button {{
-                border-radius: 14px !important;
-                background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+            /* Primary Button style - scoped only to developer-defined buttons */
+            div[data-testid="stButton"] button, 
+            div[data-testid="stFormSubmitButton"] button {{
+                border-radius: 12px !important;
+                background: var(--primary) !important;
                 color: white !important;
                 padding: 12px 24px !important;
-                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid var(--border) !important;
                 font-family: 'Outfit', sans-serif !important;
                 font-weight: 600 !important;
-                box-shadow: var(--shadow) !important;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                box-shadow: none !important;
+                transition: background-color 0.2s ease, border-color 0.2s ease !important;
             }}
 
-            button:hover {{
-                transform: translateY(-2px) !important;
-                box-shadow: 0 8px 25px var(--primary-glow) !important;
-                background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%) !important;
+            div[data-testid="stButton"] button:hover, 
+            div[data-testid="stFormSubmitButton"] button:hover {{
+                background: var(--primary-dark) !important;
+                border-color: var(--primary) !important;
             }}
 
-            button:active {{
-                transform: translateY(0px) !important;
+            div[data-testid="stButton"] button:active, 
+            div[data-testid="stFormSubmitButton"] button:active {{
+                background: var(--primary-dark) !important;
+            }}
+
+            /* Style Streamlit's sidebar toggle buttons (expand & collapse) to render flat 2D icons and completely hide raw icon texts */
+            div[data-testid="collapsedControl"] {{
+                visibility: visible !important;
+                z-index: 999999 !important;
+            }}
+
+            header button,
+            button[data-testid="stSidebarCollapseButton"],
+            section[data-testid="stSidebar"] button,
+            button.e12tamyi15 {{
+                visibility: visible !important;
+                z-index: 999999 !important;
+                width: 40px !important;
+                height: 40px !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                background: transparent !important;
+                border: none !important;
+                box-shadow: none !important;
+                cursor: pointer !important;
+                border-radius: 50% !important;
+                transition: background-color 0.2s ease !important;
+                padding: 0 !important;
+                margin: 8px !important;
+                font-size: 0px !important;
+                color: transparent !important;
+                line-height: 0 !important;
+                position: relative !important;
+            }}
+
+            header button:hover,
+            button[data-testid="stSidebarCollapseButton"]:hover,
+            section[data-testid="stSidebar"] button:hover,
+            button.e12tamyi15:hover {{
+                background-color: rgba(255, 255, 255, 0.1) !important;
+                border: none !important;
+                transform: none !important;
+            }}
+
+            /* Hide all child elements containing raw icon texts inside any sidebar toggle button */
+            header button *,
+            button[data-testid="stSidebarCollapseButton"] *,
+            section[data-testid="stSidebar"] button *,
+            button.e12tamyi15 * {{
+                font-size: 0px !important;
+                color: transparent !important;
+                line-height: 0 !important;
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                width: 0 !important;
+                height: 0 !important;
+            }}
+
+            /* Custom 2D flat icons on the buttons directly */
+            header button::before,
+            div[data-testid="collapsedControl"] button::before {{
+                content: "☰" !important;
+                font-size: 1.5rem !important;
+                color: var(--text-primary) !important;
+                font-family: 'Outfit', sans-serif !important;
+                visibility: visible !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 100% !important;
+                height: 100% !important;
+            }}
+
+            button[data-testid="stSidebarCollapseButton"]::before,
+            section[data-testid="stSidebar"] button::before {{
+                content: "✕" !important;
+                font-size: 1.3rem !important;
+                color: var(--text-primary) !important;
+                font-family: 'Outfit', sans-serif !important;
+                visibility: visible !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 100% !important;
+                height: 100% !important;
+            }}
+
+            header button svg,
+            button[data-testid="stSidebarCollapseButton"] svg,
+            section[data-testid="stSidebar"] button svg,
+            button.e12tamyi15 svg {{
+                display: none !important;
             }}
 
             /* Secondary Button */
             button[kind="secondary"] {{
-                border-radius: 14px !important;
-                background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%) !important;
+                border-radius: 12px !important;
+                background: var(--secondary) !important;
                 color: white !important;
                 padding: 12px 24px !important;
-                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                border: 1px solid var(--border) !important;
                 font-family: 'Outfit', sans-serif !important;
                 font-weight: 600 !important;
-                box-shadow: 0 4px 15px var(--secondary-glow) !important;
+                box-shadow: none !important;
+                transition: background-color 0.2s ease, border-color 0.2s ease !important;
             }}
 
             button[kind="secondary"]:hover {{
-                transform: translateY(-2px) !important;
-                box-shadow: 0 8px 25px var(--secondary-glow) !important;
-                background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--secondary) 100%) !important;
+                background: var(--secondary-dark) !important;
+                border-color: var(--secondary) !important;
             }}
 
             /* Tertiary Button */
             button[kind="tertiary"] {{
-                border-radius: 14px !important;
+                border-radius: 12px !important;
                 background: var(--input-bg) !important;
                 color: var(--text-primary) !important;
                 padding: 10px 20px !important;
@@ -216,13 +305,12 @@ def style_base_layout():
                 font-family: 'Outfit', sans-serif !important;
                 font-weight: 500 !important;
                 box-shadow: none !important;
+                transition: background-color 0.2s ease, border-color 0.2s ease !important;
             }}
 
             button[kind="tertiary"]:hover {{
-                transform: translateY(-2px) !important;
-                background: rgba(255, 255, 255, 0.08) !important;
-                color: var(--text-primary) !important;
-                box-shadow: var(--shadow) !important;
+                background: var(--tab-selected) !important;
+                border-color: var(--primary) !important;
             }}
 
             /* Inputs & Dropdowns */
@@ -236,15 +324,15 @@ def style_base_layout():
                 font-family: 'Outfit', sans-serif !important;
                 color: var(--text-primary) !important;
                 padding: 12px 16px !important;
-                box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.01) !important;
-                transition: all 0.3s ease !important;
+                box-shadow: none !important;
+                transition: border-color 0.2s ease !important;
             }}
             div[data-testid="stTextInput"] input:focus, 
             div[data-testid="stNumberInput"] input:focus,
             div[data-testid="stSelectbox"] div[role="combobox"]:focus {{
                 border-color: var(--input-focus-border) !important;
-                box-shadow: 0 0 0 3px var(--primary-glow) !important;
-                background: var(--bg-card) !important;
+                box-shadow: none !important;
+                background: var(--input-bg) !important;
             }}
             
             /* Labels */
@@ -257,27 +345,25 @@ def style_base_layout():
             div[data-testid="stTabBar"] {{
                 gap: 8px !important;
                 background: var(--tab-bg) !important;
-                backdrop-filter: blur(8px) !important;
-                -webkit-backdrop-filter: blur(8px) !important;
                 padding: 6px !important;
-                border-radius: 16px !important;
+                border-radius: 12px !important;
                 border: 1px solid var(--tab-border) !important;
                 margin-bottom: 20px !important;
             }}
             div[data-testid="stTabBar"] button {{
-                border-radius: 12px !important;
+                border-radius: 8px !important;
                 background: transparent !important;
                 color: var(--text-muted) !important;
                 box-shadow: none !important;
                 padding: 8px 16px !important;
                 font-weight: 600 !important;
-                transition: all 0.25s ease !important;
+                transition: all 0.2s ease !important;
                 border: none !important;
             }}
             div[data-testid="stTabBar"] button[aria-selected="true"] {{
                 background: var(--tab-selected) !important;
                 color: var(--primary) !important;
-                box-shadow: var(--shadow) !important;
+                box-shadow: none !important;
             }}
             div[data-testid="stTabBar"] button:hover {{
                 color: var(--primary) !important;
@@ -286,19 +372,16 @@ def style_base_layout():
 
             /* Metrics styling */
             div[data-testid="stMetric"] {{
-                background: var(--metric-bg) !important;
-                backdrop-filter: blur(10px) !important;
-                -webkit-backdrop-filter: blur(10px) !important;
-                border: 1px solid var(--metric-border) !important;
-                border-radius: 20px !important;
+                background: var(--bg-secondary) !important;
+                border: 1px solid var(--border) !important;
+                border-radius: 12px !important;
                 padding: 20px !important;
-                box-shadow: var(--shadow) !important;
+                box-shadow: none !important;
                 text-align: center !important;
-                transition: transform 0.3s ease !important;
+                transition: border-color 0.2s ease !important;
             }}
             div[data-testid="stMetric"]:hover {{
-                transform: translateY(-3px) !important;
-                border-color: var(--border-glow) !important;
+                border-color: var(--primary) !important;
             }}
             div[data-testid="stMetricLabel"] {{
                 font-family: 'Outfit', sans-serif !important;
@@ -313,36 +396,30 @@ def style_base_layout():
                 font-size: 2.25rem !important;
             }}
 
-            /* Glassmorphic border wrapper for login/register */
+            /* Flat border wrapper for login/register */
             div[data-testid="stVerticalBlockBorderWrapper"] {{
                 background: var(--bg-card) !important;
-                backdrop-filter: blur(15px) !important;
-                -webkit-backdrop-filter: blur(15px) !important;
                 border: 1px solid var(--border) !important;
-                border-radius: 28px !important;
+                border-radius: 16px !important;
                 padding: 2.5rem !important;
-                box-shadow: var(--shadow) !important;
+                box-shadow: none !important;
                 margin-top: 10px !important;
             }}
 
             /* Biometric scan cards */
             .biometric-card {{
-                background: var(--metric-bg) !important;
-                backdrop-filter: blur(10px) !important;
-                -webkit-backdrop-filter: blur(10px) !important;
+                background: var(--bg-secondary) !important;
                 border: 1px solid var(--border) !important;
-                border-radius: 24px !important;
+                border-radius: 16px !important;
                 padding: 24px !important;
                 text-align: center !important;
                 margin-bottom: 12px !important;
-                box-shadow: var(--shadow) !important;
-                transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+                box-shadow: none !important;
+                transition: border-color 0.2s ease, background-color 0.2s ease !important;
             }}
             .biometric-card:hover {{
-                transform: translateY(-4px) !important;
-                box-shadow: 0 15px 30px var(--primary-glow) !important;
                 background: var(--bg-card) !important;
-                border-color: var(--border-glow) !important;
+                border-color: var(--primary) !important;
             }}
             .biometric-card h4 {{
                 color: var(--text-primary) !important;
@@ -352,8 +429,6 @@ def style_base_layout():
             /* Sidebar glassmorphism override */
             section[data-testid="stSidebar"] {{
                 background-color: var(--bg-sidebar) !important;
-                backdrop-filter: blur(12px) !important;
-                -webkit-backdrop-filter: blur(12px) !important;
                 border-right: 1px solid var(--border) !important;
             }}
             

@@ -245,7 +245,7 @@ def teacher_subject_details_dashboard():
             # Manual Unenroll form
             st.markdown("#### Unenroll Student")
             to_unenroll = st.selectbox("Select student to unenroll", options=[f"{s['Name']} (ID: {s['Student ID']})" for s in student_list], key='unenroll_selectbox')
-            if st.button("Remove Selected Student", type="secondary", key='btn_unenroll_student_submit'):
+            if st.button("Remove Selected Student", type="secondary", key='btn_unenroll_student_submit', use_container_width=True):
                 selected_id = int(to_unenroll.split("ID: ")[1].split(")")[0])
                 try:
                     unenroll_student_to_subject(selected_id, subject_id)

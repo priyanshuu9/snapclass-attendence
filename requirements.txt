@@ -5,7 +5,8 @@ pandas
 
 # FACE RECOGNITION
 scikit-learn
-dlib-bin
+dlib-bin; sys_platform == 'win32'
+dlib; sys_platform != 'win32'
 git+https://github.com/ageitgey/face_recognition_models
 setuptools<70.0.0
 

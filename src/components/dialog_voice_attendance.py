@@ -21,7 +21,7 @@ def voice_attendance_dialog(selected_subject_id):
         st.write('Record audio of students saying "I am present". Then AI will recognize the students.')
         audio_data = st.audio_input("Record classroom audio")
 
-    if st.button('Analyze Audio', width='stretch', type='primary'):
+    if st.button('Analyze Audio', type='primary', use_container_width=True):
         # Guard: user must record audio first
         if not audio_data:
             st.warning('⚠️ Please record audio before analyzing.')

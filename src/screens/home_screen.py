@@ -39,16 +39,14 @@ def home_screen():
             color: var(--primary);
         }
 
-        /* Glassmorphic Navbar Wrapper Selector Hack */
+        /* Flat Navbar Wrapper Selector Hack */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             background: var(--bg-navbar) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            border-radius: 20px !important;
+            border-radius: 12px !important;
             border: 1px solid var(--border) !important;
             padding: 12px 24px !important;
             margin-bottom: 3rem !important;
-            box-shadow: var(--shadow) !important;
+            box-shadow: none !important;
         }
 
         /* Hero Text & Layout */
@@ -66,9 +64,7 @@ def home_screen():
             margin-bottom: 1.5rem !important;
         }
         .hero-title span {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
+            color: var(--primary) !important;
         }
         .hero-subtitle {
             font-family: 'Outfit', sans-serif !important;
@@ -91,18 +87,17 @@ def home_screen():
         }
         .feature-card {
             background: var(--bg-card);
-            border-radius: 20px;
+            border-radius: 12px;
             padding: 2.25rem;
             border: 1px solid var(--border);
             border-left: 5px solid var(--primary);
             color: var(--text-primary);
-            box-shadow: var(--shadow);
+            box-shadow: none;
             margin-bottom: 1.5rem;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            transition: border-color 0.2s ease;
         }
         .feature-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--border-glow);
+            border-color: var(--primary);
         }
         .feature-title {
             font-family: 'Outfit', sans-serif;
@@ -121,11 +116,11 @@ def home_screen():
         /* How It Works Card Styling */
         .how-card {
             background: var(--bg-card) !important;
-            border-radius: 24px !important;
+            border-radius: 12px !important;
             padding: 2.5rem !important;
             border: 1px solid var(--border) !important;
             height: 100% !important;
-            box-shadow: var(--shadow) !important;
+            box-shadow: none !important;
         }
         .how-card h3 {
             color: var(--text-primary) !important;
@@ -152,15 +147,15 @@ def home_screen():
         .faq-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 1.75rem;
             margin-bottom: 1.25rem;
             color: var(--text-primary);
-            box-shadow: var(--shadow);
-            transition: border-color 0.3s ease;
+            box-shadow: none;
+            transition: border-color 0.2s ease;
         }
         .faq-card:hover {
-            border-color: var(--border-glow);
+            border-color: var(--primary);
         }
         .faq-question {
             font-family: 'Outfit', sans-serif;

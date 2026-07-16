@@ -1,6 +1,11 @@
 import os
 from flask import Flask, render_template
 
+try:
+    from api.config import get_streamlit_url
+except ImportError:
+    from config import get_streamlit_url
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 app = Flask(
     __name__,
@@ -10,9 +15,40 @@ app = Flask(
 
 @app.route('/')
 def home():
-    # Retrieve the Streamlit app URL from environment or default to localhost:8501
-    streamlit_url = os.environ.get('STREAMLIT_URL', 'http://localhost:8501')
+    # Dynamically detect and render the correct Streamlit URL
+    streamlit_url = get_streamlit_url()
     return render_template('index.html', streamlit_url=streamlit_url)
+
+@app.route('/connect')
+def connect():
+    # Render the waking loader screen
+    streamlit_url = get_streamlit_url()
+    return render_template('connect.html', streamlit_url=streamlit_url)
+
+@app.route('/api/health')
+def health_check():
+    # Server-to-server check to verify if the Streamlit app is awake and responsive
+    streamlit_url = get_streamlit_url()
+    try:
+        import requests
+        # Check standard Streamlit health check endpoint
+        res = requests.get(f"{streamlit_url.rstrip('/')}/_stcore/health", timeout=3)
+        if res.status_code == 200:
+            return {"status": "online"}
+    except Exception:
+        pass
+        
+    try:
+        import requests
+        # Fallback check on the root page
+        res = requests.get(streamlit_url, timeout=3)
+        if res.status_code == 200:
+            if "Sleeping" not in res.text and "waking up" not in res.text:
+                return {"status": "online"}
+    except Exception:
+        pass
+        
+    return {"status": "offline"}
 
 if __name__ == '__main__':
     app.run(debug=True, port=5002)

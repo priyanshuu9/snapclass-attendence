@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connecting to SnapClass AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0B0B0B;
+            --bg-card: #161616;
+            --bg-secondary: #121212;
+            --border: #222222;
+            --text-primary: #ffffff;
+            --text-muted: #8e8e93;
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary: #7c3aed;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 480px;
+            width: 100%;
+            padding: 40px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .loader-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px auto;
+        }
+
+        /* 2D Flat loading spinner */
+        .spinner {
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            min-height: 30px;
+        }
+
+        .status-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.5;
+            min-height: 45px;
+        }
+
+        .actions-container {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            border: 1px solid var(--border);
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--border);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border);
+        }
+
+        /* Hidden elements */
+        #wake-trigger-iframe {
+            display: none;
+            width: 0;
+            height: 0;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="https://i.ibb.co/YTYGn5qV/logo.png" class="logo-img" alt="SnapClass Logo">
+            <span class="logo-text">SnapClass</span>
+        </div>
+
+        <!-- Spinner -->
+        <div class="loader-container">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Status -->
+        <h2 class="status-title" id="status-title">Connecting to SnapClass AI...</h2>
+        <p class="status-desc" id="status-desc">Establishing a connection to the biometrics gateway.</p>
+
+        <!-- Dynamic Action Buttons (shown only on timeout) -->
+        <div class="actions-container" id="actions-container">
+            <button class="btn btn-primary" onclick="window.location.reload();">Retry Connection</button>
+            <a href="/" class="btn btn-secondary">Go Back to Home</a>
+            <a href="mailto:support@snapclass.ai?subject=SnapClass%20App%20Offline" class="btn btn-secondary">Report Issue</a>
+        </div>
+    </div>
+
+    <!-- Hidden iframe to hit Streamlit Cloud and trigger container wake-up -->
+    <iframe id="wake-trigger-iframe" src="{{ streamlit_url }}"></iframe>
+
+    <script>
+        const streamlitUrl = "{{ streamlit_url }}";
+        const startTime = Date.now();
+        const maxWaitTime = 60000; // 60 seconds
+        let checkInterval;
+
+        const statusTitle = document.getElementById('status-title');
+        const statusDesc = document.getElementById('status-desc');
+        const actionsContainer = document.getElementById('actions-container');
+        const spinner = document.querySelector('.spinner');
+
+        // Dynamic status titles to cycle through during load
+        const loadingMessages = [
+            { title: "Opening AI Attendance...", desc: "Initializing secure session context." },
+            { title: "Connecting...", desc: "Locating biometric database nodes." },
+            { title: "Launching Dashboard...", desc: "Waking the underlying server engines." }
+        ];
+
+        let messageIndex = 0;
+        const messageInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            if (elapsed > 10000) {
+                // If it takes more than 10 seconds, it's definitely sleeping/waking
+                statusTitle.textContent = "Waking up SnapClass AI...";
+                statusDesc.textContent = "Streamlit Community Cloud is loading the instance container. This usually takes 20-60 seconds.";
+                clearInterval(messageInterval);
+                return;
+            }
+            
+            // Cycle through messages
+            const msg = loadingMessages[messageIndex];
+            statusTitle.textContent = msg.title;
+            statusDesc.textContent = msg.desc;
+            messageIndex = (messageIndex + 1) % loadingMessages.length;
+        }, 3000);
+
+        function checkHealth() {
+            const elapsed = Date.now() - startTime;
+
+            if (elapsed >= maxWaitTime) {
+                // Connection timed out
+                clearInterval(checkInterval);
+                clearInterval(messageInterval);
+                statusTitle.textContent = "Application Offline";
+                statusDesc.textContent = "SnapClass AI is taking longer than usual to wake up. Please retry or contact support if the issue persists.";
+                spinner.style.borderTopColor = 'var(--border)'; // stop coloring spinner
+                spinner.style.animation = 'none'; // stop spinning
+                actionsContainer.style.display = 'flex';
+                return;
+            }
+
+            // Call Flask backend health check endpoint to avoid CORS issues
+            fetch('/api/health')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'online') {
+                        // Success! Redirect to the Streamlit app
+                        clearInterval(checkInterval);
+                        clearInterval(messageInterval);
+                        statusTitle.textContent = "Connected Successfully";
+                        statusDesc.textContent = "Redirecting you to the workspace dashboard...";
+                        setTimeout(() => {
+                            window.location.href = streamlitUrl;
+                        }, 800);
+                    }
+                })
+                .catch(err => {
+                    console.error("Health check fetch failed:", err);
+                });
+        }
+
+        // Run check immediately and then every 5 seconds
+        checkHealth();
+        checkInterval = setInterval(checkHealth, 5000);
+    </script>
+</body>
+</html>

@@ -279,7 +279,7 @@ def student_dashboard():
         else:
             face_source = st.camera_input("Capture photo to refresh your face template", key='profile_face_cam')
         if face_source:
-            if st.button('Save New Face Template', type='primary', key='btn_save_face_template'):
+            if st.button('Save New Face Template', type='primary', key='btn_save_face_template', use_container_width=True):
                 with st.spinner('Extracting face embedding...'):
                     img = np.array(Image.open(face_source))
                     encodings = get_face_embeddings(img)
@@ -306,7 +306,7 @@ def student_dashboard():
             st.warning("Microphone access is not supported or blocked by browser settings.")
         
         if voice_source:
-            if st.button('Save New Voice Template', type='primary', key='btn_save_voice_template'):
+            if st.button('Save New Voice Template', type='primary', key='btn_save_voice_template', use_container_width=True):
                 with st.spinner('Extracting vocal features...'):
                     try:
                         voice_emb = get_voice_embedding(voice_source.read())
