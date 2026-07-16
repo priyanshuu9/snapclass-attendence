@@ -243,8 +243,8 @@
                         setTimeout(() => {
                             window.location.href = streamlitUrl;
                         }, 800);
-                    } else if (data.status === 'sleeping') {
-                        // Streamlit is sleeping! Show direct Wake Up link immediately
+                    } else if (data.status === 'sleeping' || data.status === 'offline') {
+                        // Streamlit is sleeping or offline! Show direct Wake Up link immediately
                         clearInterval(messageInterval);
                         statusTitle.textContent = "Waking up SnapClass AI...";
                         statusDesc.textContent = "Streamlit Community Cloud is loading the instance container. Click below to confirm container boot.";

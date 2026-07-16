@@ -29,10 +29,13 @@ def connect():
 def health_check():
     # Server-to-server check to verify if the Streamlit app is awake and responsive
     streamlit_url = get_streamlit_url()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
     try:
         import requests
         # Check standard Streamlit health check endpoint
-        res = requests.get(f"{streamlit_url.rstrip('/')}/_stcore/health", timeout=3)
+        res = requests.get(f"{streamlit_url.rstrip('/')}/_stcore/health", headers=headers, timeout=4)
         if res.status_code == 200:
             return {"status": "online"}
     except Exception:
@@ -41,7 +44,7 @@ def health_check():
     try:
         import requests
         # Fallback check on the root page
-        res = requests.get(streamlit_url, timeout=4)
+        res = requests.get(streamlit_url, headers=headers, timeout=4)
         content = res.text.lower()
         
         # If redirected to share.streamlit.io auth or contains sleep text, it is sleeping
